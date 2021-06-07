@@ -2,13 +2,13 @@
 ### Pack's configuration
 # PHP Buildpacks : https://docs.pivotal.io/tanzu-buildpacks/php/php-buildpack.html
 php:
-  # this allows you to specify a version constraint for the `php` dependency
+  # This allows you to specify a version constraint for the `php` dependency
   # any valid semver constaints (e.g. 7.*) are also acceptable
   # Wordpress 7.x requirements :
   #   * PHP >= 7.4.x
-  version: 7.2.*
+  version: 7.*
 
-  # text user can specify to use PHP's built-in Web Server
+  # Text user can specify to use PHP's built-in Web Server
   # default: php-server
   webserver: php-server
 
@@ -16,7 +16,7 @@ php:
   # default: htdocs
   webdirectory: src
 
-  # directory where library code is stored
+  # Directory where library code is stored
   # default: lib
   libdirectory: lib
 
