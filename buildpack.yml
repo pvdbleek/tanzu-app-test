@@ -1,9 +1,11 @@
+---
+### Pack's configuration
 php:
   # this allows you to specify a version constraint for the `php` dependency
   # any valid semver constaints (e.g. 7.*) are also acceptable
   # Wordpress 7.x requirements :
   #   * PHP >= 7.4.x
-  version: 7.4.*
+  version: 7.2.*
 
   # text user can specify to use PHP's built-in Web Server
   # default: php-server
@@ -12,3 +14,4 @@ php:
   # Directory where web app code is stored
   # default: htdocs
   webdirectory: src
+...
