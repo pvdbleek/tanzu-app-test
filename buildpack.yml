@@ -1,5 +1,6 @@
 ---
 ### Pack's configuration
+# PHP Buildpacks : https://docs.pivotal.io/tanzu-buildpacks/php/php-buildpack.html
 php:
   # this allows you to specify a version constraint for the `php` dependency
   # any valid semver constaints (e.g. 7.*) are also acceptable
@@ -14,4 +15,11 @@ php:
   # Directory where web app code is stored
   # default: htdocs
   webdirectory: src
+
+  # directory where library code is stored
+  # default: lib
+  libdirectory: lib
+
+  # default: admin@localhost
+  serveradmin: admin@localhost
 ...
