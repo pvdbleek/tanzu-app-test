@@ -14,7 +14,7 @@ php:
 
   # Directory where web app code is stored
   # default: htdocs
-  webdirectory: src
+  webdirectory: htdocs
 
   # Directory where library code is stored
   # default: lib
