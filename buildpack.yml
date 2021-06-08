@@ -6,7 +6,7 @@ php:
   # any valid semver constaints (e.g. 7.*) are also acceptable
   # Wordpress 7.x requirements :
   #   * PHP >= 7.4.x
-  version: 7.*
+  version: 7.4.*
 
   ## Text user can specify to use PHP's built-in Web Server
   # default: php-server
@@ -16,10 +16,10 @@ php:
   # default: htdocs
 
   # Test directory (phpinfo)
-  webdirectory: htdocs
+  #webdirectory: htdocs
 
   # Run Directory
-  #webdirectory: src
+  webdirectory: src
 
   ## Directory where library code is stored
   # default: lib
