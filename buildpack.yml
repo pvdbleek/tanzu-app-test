@@ -6,11 +6,11 @@ php:
   # any valid semver constaints (e.g. 7.*) are also acceptable
   # Wordpress 7.x requirements :
   #   * PHP >= 7.4.x
-  version: 7.4.*
+  version: 7.*
 
   ## Text user can specify to use PHP's built-in Web Server
   # options are: php-server, httpd, nginx. default: php-server
-  webserver: httpd
+  webserver: nginx
 
   ## Directory where web app code is stored
   # default: htdocs
