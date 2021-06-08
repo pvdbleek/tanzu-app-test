@@ -10,7 +10,7 @@ php:
 
   ## Text user can specify to use PHP's built-in Web Server
   # options are: php-server, httpd, nginx. default: php-server
-  webserver: nginx
+  webserver: httpd
 
   ## Directory where web app code is stored
   # default: htdocs
