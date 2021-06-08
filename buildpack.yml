@@ -9,8 +9,8 @@ php:
   version: 7.4.*
 
   ## Text user can specify to use PHP's built-in Web Server
-  # default: php-server
-  webserver: php-server
+  # options are: php-server, httpd, nginx. default: php-server
+  webserver: nginx
 
   ## Directory where web app code is stored
   # default: htdocs
@@ -26,5 +26,5 @@ php:
   libdirectory: lib
 
   ## default: admin@localhost
-  serveradmin: admin@localhost
+  serveradmin: paas@localhost
 ...
