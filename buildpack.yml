@@ -25,6 +25,10 @@ php:
   # default: lib
   libdirectory: lib
 
+  # cli script to use
+  # no default
+  script:
+
   ## default: admin@localhost
   serveradmin: paas@localhost
 ...
