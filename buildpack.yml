@@ -1,6 +1,10 @@
 ---
 ### Pack's configuration
 # PHP Buildpacks : https://docs.pivotal.io/tanzu-buildpacks/php/php-buildpack.html
+
+nginx:
+  version: 1.*
+
 php:
   ## This allows you to specify a version constraint for the `php` dependency
   # any valid semver constaints (e.g. 7.*) are also acceptable
@@ -23,7 +27,7 @@ php:
 
   # cli script to use
   # no default
-  #script:
+  script:
 
   ## default: admin@localhost
   serveradmin: paas@localhost
