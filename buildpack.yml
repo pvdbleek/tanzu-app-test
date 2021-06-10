@@ -2,12 +2,14 @@
 ### Pack's configuration
 
 # HTTPD Buildpack : https://docs.pivotal.io/tanzu-buildpacks/httpd/httpd-buildpack.html
+#                   https://github.com/paketo-buildpacks/httpd
 httpd:
   # This allows you to specify a version constraint for the httpd dependency
   # any valid semver constaints (e.g. 2.* and 2.4.*) are also acceptable
   version: 2.4.*
 
 # Nginx Buildpack : https://docs.pivotal.io/tanzu-buildpacks/nginx/nginx-buildpack.html
+#                   https://github.com/paketo-buildpacks/nginx
 nginx:
   # This allows you to specify a version constaint for the `NGINX` dependency
   # any valid semver constaints (e.g. 1.* and 1.17.*) are also acceptable
@@ -16,6 +18,7 @@ nginx:
   version: stable
 
 # PHP Buildpack : https://docs.pivotal.io/tanzu-buildpacks/php/php-buildpack.html
+#                 https://github.com/paketo-buildpacks/php-web
 php:
   ## This allows you to specify a version constraint for the `php` dependency
   # any valid semver constaints (e.g. 7.*) are also acceptable
