@@ -1,5 +1,4 @@
 ---
-# Deployment file...
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,14 +10,11 @@ spec:
   - name: http
     port: 80
     protocol: TCP
-    targetPort: http
+    targetPort: container-http
   - name: https
     port: 443
     protocol: TCP
-    targetPort: https
-#  ports:
-#  - port: 8080
-#    targetPort: 8080
+    targetPort: container-https
   selector:
     app.kubernetes.io/name: demo-wordpress
   type: LoadBalancer
@@ -46,37 +42,117 @@ spec:
         app.kubernetes.io/managed-by: Ludo
     spec:
       containers:
+      # Image from existing registry (Harbor)
       - image: harbor.haas-231.pez.pivotal.io/tbs-created/paas-wordpress:latest
         name: paas-wordpress
+        ### Define container environment variable
+        env:
+        # Nginx / HTTPD listen port
+        - name: PORT
+          value: '8080'
+        # Database NameA
+        - name: RDS_DB_NAME
+          value: 'demo-wordpress'
+        # SECRET : Database User
+        - name: RDS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: rds_db_user
+        # SECRET : Database Password
+        - name: RDS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: rds_db_password
+        # FQDN of database
+        - name: RDS_HOSTNAME
+          value: 'demo-wp-mariadb.default.svc.cluster.local'
+        # MySQL/MariaDB port
+        - name: RDS_PORT
+          value: '3306'
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: AUTH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: auth_key
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: SECURE_AUTH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: secure_auth_key
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: LOGGED_IN_KEY
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: logged_in_key
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: NONCE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: nonce_key
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: AUTH_SALT
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: auth_salt
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: SECURE_AUTH_SALT
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: secure_auth_salt
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: LOGGED_IN_SALT
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: logged_in_salt
+        # SECRET : Authentication Unique Keys and Salts => Must be uniq
+        - name: NONCE_SALT
+          valueFrom:
+            secretKeyRef:
+              name: demo-wordpress
+              key: nonce_salt
+
+        # Image Pulling Policy
         imagePullPolicy: IfNotPresent
+        #imagePullPolicy: Always
         resources: {}
         ports:
         - containerPort: 8080
-          name: http
+          name: container-http
           protocol: TCP
         - containerPort: 8443
-          name: https
+          name: container-https
           protocol: TCP
-        livenessProbe:
-          failureThreshold: 6
-          httpGet:
-            path: /wp-admin/install.php
-            port: http
-            scheme: HTTP
-          initialDelaySeconds: 120
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
-        readinessProbe:
-          failureThreshold: 6
-          httpGet:
-            path: /wp-login.php
-            port: http
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
+#        livenessProbe:
+#          failureThreshold: 6
+#          httpGet:
+#            path: /wp-admin/install.php
+#            port: http
+#            scheme: HTTP
+#          initialDelaySeconds: 120
+#          periodSeconds: 10
+#          successThreshold: 1
+#          timeoutSeconds: 5
+#        readinessProbe:
+#          failureThreshold: 6
+#          httpGet:
+#            path: /wp-login.php
+#            port: http
+#            scheme: HTTP
+#          initialDelaySeconds: 30
+#          periodSeconds: 10
+#          successThreshold: 1
+#          timeoutSeconds: 5
+
+
 #        resources:
 #          requests:
 #            cpu: 200m
