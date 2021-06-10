@@ -1,2 +1,2 @@
 # tanzu-app-test
-Test Application on Tanzu
+Test Tanzu Build Service to deply an application on a K8s Cluster
