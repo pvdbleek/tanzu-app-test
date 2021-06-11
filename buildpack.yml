@@ -23,8 +23,8 @@ php:
   ## This allows you to specify a version constraint for the `php` dependency
   # any valid semver constaints (e.g. 7.*) are also acceptable
   # Wordpress 7.x requirements :
-  #   * PHP >= 7.4.x
-  version: 7.4.*
+  #   * PHP >= 7.4.*
+  version: 8.*
 
   ## Text user can specify to use PHP's built-in Web Server
   # options are: php-server, httpd, nginx. default: php-server
