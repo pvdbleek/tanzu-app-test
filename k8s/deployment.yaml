@@ -4,7 +4,9 @@ kind: Service
 metadata:
   name: demo-wordpress
   labels:
-    app.kubernetes.io/name: demo-wordpress
+    app: demo-wordpress
+    owner: ludo
+    role: demo
 spec:
   ports:
   - name: http
@@ -18,18 +20,35 @@ spec:
   selector:
     app.kubernetes.io/name: demo-wordpress
   type: LoadBalancer
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: demo-wordpress-content-pvc
+#  labels:
+#    app: demo-wordpress
+#    owner: ludo
+#    role: demo
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#  requests:
+#    storage: 2Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demo-wordpress
   labels:
-    app.kubernetes.io/name: demo-wordpress
+    app: demo-wordpress
+    owner: ludo
+    role: demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: demo-wordpress
+      app: demo-wordpress
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -38,8 +57,9 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: demo-wordpress
-        app.kubernetes.io/managed-by: Ludo
+        app: demo-wordpress
+        owner: ludo
+        role: demo
     spec:
       containers:
       # Image from existing registry (Harbor)
@@ -121,8 +141,9 @@ spec:
               key: nonce_salt
 
         # Image Pulling Policy
-        imagePullPolicy: IfNotPresent
-        #imagePullPolicy: Always
+        #   /!\ Always to avoid cache side effect during deployment
+        #imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources: {}
         ports:
         - containerPort: 8080
@@ -131,40 +152,36 @@ spec:
         - containerPort: 8443
           name: container-https
           protocol: TCP
-#        livenessProbe:
-#          failureThreshold: 6
-#          httpGet:
-#            path: /wp-admin/install.php
-#            port: http
-#            scheme: HTTP
-#          initialDelaySeconds: 120
-#          periodSeconds: 10
-#          successThreshold: 1
-#          timeoutSeconds: 5
-#        readinessProbe:
-#          failureThreshold: 6
-#          httpGet:
-#            path: /wp-login.php
-#            port: http
-#            scheme: HTTP
-#          initialDelaySeconds: 30
-#          periodSeconds: 10
-#          successThreshold: 1
-#          timeoutSeconds: 5
 
+#        # PVC
+#        volumeMounts:
+#        - name: demo-wordpress-content-pvc
+#          mountPath: /workspace/src/wp-content
 
+        # Probing / HealthCheck
+        livenessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /wp-admin/install.php
+            port: container-http
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /wp-login.php
+            port: container-http
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+
+#        # Resources : useless in lab
 #        resources:
 #          requests:
 #            cpu: 200m
 #            memory: 384Mi
-
-#        livenessProbe:
-#          httpGet:
-#            path: /actuator/health/liveness
-#            port: 8080
-#          initialDelaySeconds: 20
-#        readinessProbe:
-#          httpGet:
-#            path: /actuator/health/readiness
-#            port: 8080
-#          initialDelaySeconds: 20
