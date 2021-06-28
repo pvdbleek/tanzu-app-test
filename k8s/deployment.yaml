@@ -87,7 +87,7 @@ spec:
               key: rds_db_password
         # FQDN of database
         - name: RDS_HOSTNAME
-          value: 'demo-wp-mariadb.default.svc.cluster.local'
+          value: 'demo-wordpress-mariadb.default.svc.cluster.local'
         # MySQL/MariaDB port
         - name: RDS_PORT
           value: '3306'
