@@ -18,7 +18,7 @@ spec:
 #    protocol: TCP
 #    targetPort: container-https
   selector:
-    app.kubernetes.io/name: demo-wordpress
+    app: demo-wordpress
   type: LoadBalancer
   #loadBalancerIP: 10.195.3.14
 #---
