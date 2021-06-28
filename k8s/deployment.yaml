@@ -20,7 +20,7 @@ spec:
   selector:
     app.kubernetes.io/name: demo-wordpress
   type: LoadBalancer
-  loadBalancerIP: 10.195.3.14
+  #loadBalancerIP: 10.195.3.14
 #---
 #apiVersion: v1
 #kind: PersistentVolumeClaim
