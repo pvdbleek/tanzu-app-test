@@ -13,10 +13,10 @@ spec:
     port: 80
     protocol: TCP
     targetPort: container-http
-  - name: https
-    port: 443
-    protocol: TCP
-    targetPort: container-https
+#  - name: https
+#    port: 443
+#    protocol: TCP
+#    targetPort: container-https
   selector:
     app.kubernetes.io/name: demo-wordpress
   type: LoadBalancer
@@ -150,9 +150,9 @@ spec:
         - containerPort: 8080
           name: container-http
           protocol: TCP
-        - containerPort: 8443
-          name: container-https
-          protocol: TCP
+#        - containerPort: 8443
+#          name: container-https
+#          protocol: TCP
 
 #        # PVC
 #        volumeMounts:
